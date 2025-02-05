@@ -6,17 +6,20 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/PraveenKuber/Amazon-Jenkins.git'
+                // Cloning the repository from GitHub
+                git branch: 'main', url: 'https://github.com/iamzeejay/Amazon-Jenkins.git'
             }
         }
         stage('Compile') {
             steps {
-                bat 'compile'
+                // Running the Maven compile command
+                bat 'mvn compile'
             }
         }
         stage('Build') {
             steps {
-                bat 'clean install'
+                // Running the Maven clean install command
+                bat 'mvn clean install'
             }
         }
     }
