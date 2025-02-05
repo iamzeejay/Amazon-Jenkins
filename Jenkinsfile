@@ -13,15 +13,15 @@ pipeline {
         stage('Compile') {
             steps {
                 // Running the Maven compile command
-                bat 'set PATH=C:\\Program Files\\Java\\apache-maven-3.9.9\\bin;%PATH%'
-                bat 'mvn compile'
+                bat '"C:\\Program Files\\Java\\apache-maven-3.9.9\\bin\\mvn" compile'
+
             }
         }
         stage('Build') {
             steps {
                 // Running the Maven clean install command
-                bat 'set PATH=C:\\Program Files\\Java\\apache-maven-3.9.9\\bin;%PATH%'
-                bat 'mvn clean install'
+                bat '"C:\\Program Files\\Java\\apache-maven-3.9.9\\bin\\mvn" clean install'
+
             }
         }
     }
