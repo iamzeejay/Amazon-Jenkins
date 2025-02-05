@@ -11,12 +11,12 @@ pipeline {
         }
         stage('Compile') {
             steps {
-                bat 'mvn compile'
+                bat 'compile'
             }
         }
         stage('Build') {
             steps {
-                bat 'mvn clean install'
+                bat 'clean install'
             }
         }
     }
