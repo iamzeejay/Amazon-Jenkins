@@ -1,38 +1,31 @@
 pipeline {
     agent any
-
+    environment {
+        PATH = "C:\\Program Files\\Git\\bin;C:\\Maven\\bin;C:\\Windows\\System32"
+    }
     stages {
         stage('Clone Repository') {
             steps {
                 git branch: 'main', url: 'https://github.com/PraveenKuber/Amazon-Jenkins.git'
             }
         }
-
         stage('Compile') {
             steps {
-                sh 'mvn compile'
+                bat 'mvn compile'
             }
         }
-
-        stage('Run Tests') {
-            steps {
-                sh 'mvn test'
-            }
-        }
-
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                bat 'mvn clean install'
             }
         }
     }
-
     post {
         success {
-            echo 'Build and tests completed successfully.'
+            echo 'Build successful'
         }
         failure {
-            echo 'Build failed. Check the logs for details.'
+            echo 'Build failed'
         }
     }
 }
