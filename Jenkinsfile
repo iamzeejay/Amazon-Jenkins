@@ -29,12 +29,12 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv() {
-                    bat 'mvn clean verify sonar:sonar -Dsonar.projectKey=test -Dsonar.projectName=test'
-                }
-            }
+    steps {
+        withSonarQubeEnv('SonarQube') {
+            bat 'mvn clean verify sonar:sonar -Dsonar.projectKey=test -Dsonar.projectName=test'
         }
+    }
+}
     }
 
     post {
