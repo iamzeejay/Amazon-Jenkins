@@ -1,30 +1,42 @@
 pipeline {
     agent any
+
     environment {
-        PATH = "C:\\Program Files\\Git\\bin;C:\\Maven\\bin;C:\\Windows\\System32"
+        PATH = "C:\\Program Files\\Git\\bin;C:\\Program Files\\Java\\apache-maven-3.9.9\\bin;C:\\Windows\\System32"
     }
+
+    tools {
+        maven 'Default Maven'  // Jenkins global tool configuration name
+    }
+
     stages {
         stage('Clone Repository') {
             steps {
-                // Cloning the repository from GitHub
                 git branch: 'main', url: 'https://github.com/iamzeejay/Amazon-Jenkins.git'
             }
         }
+
         stage('Compile') {
             steps {
-                // Running the Maven compile command
-                bat '"C:\\Program Files\\Java\\apache-maven-3.9.9\\bin\\mvn" compile'
-
+                bat 'mvn compile'
             }
         }
+
         stage('Build') {
             steps {
-                // Running the Maven clean install command
-                bat '"C:\\Program Files\\Java\\apache-maven-3.9.9\\bin\\mvn" clean install'
+                bat 'mvn clean install'
+            }
+        }
 
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv() {
+                    bat 'mvn clean verify sonar:sonar -Dsonar.projectKey=test -Dsonar.projectName=test'
+                }
             }
         }
     }
+
     post {
         success {
             echo 'Build successful'
